@@ -2,24 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Seniority
+namespace Logic
 {
-    public string Level;
-
-    internal Seniority(string level)
+    [System.Serializable]
+    public class Seniority
     {
-        Level = level;
-    }
+        public string Level;
 
-    public override bool Equals(object obj)
-    {
-        if (obj == null) return false;
+        internal Seniority(string level)
+        {
+            Level = level;
+        }
 
-        Seniority other = obj as Seniority;
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
 
-        if (other == null) return false;
+            Seniority other = obj as Seniority;
 
-        return this.Level.Equals(other.Level);
+            if (other == null) return false;
+
+            return this.Level.Equals(other.Level);
+        }
     }
 }
+

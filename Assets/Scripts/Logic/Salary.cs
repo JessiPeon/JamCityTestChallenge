@@ -2,40 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Salary
+namespace Logic
 {
-    public Role Role;
-    public Seniority Seniority;
-    public float BaseSalary;
-    public float NextIncrement;
-
-    internal Salary(Role role, Seniority seniority, float baseSalary, float increment)
+    [System.Serializable]
+    public class Salary
     {
-        Role = role;
-        Seniority = seniority;
-        BaseSalary = baseSalary;
-        NextIncrement = increment;
-    }
+        public Role Role;
+        public Seniority Seniority;
+        public float BaseSalary;
+        public float NextIncrement;
 
-    public float GetBaseSalary()
-    {
-        return BaseSalary;
-    }
+        internal Salary(Role role, Seniority seniority, float baseSalary, float increment)
+        {
+            Role = role;
+            Seniority = seniority;
+            BaseSalary = baseSalary;
+            NextIncrement = increment;
+        }
 
-    public float GetIncrement()
-    {
-        return NextIncrement;
-    }
+        public float GetBaseSalary()
+        {
+            return BaseSalary;
+        }
 
-    public void ApplyIncrementToBaseSalary()
-    {
-        BaseSalary = BaseSalary + (BaseSalary * NextIncrement)/100;
-    }
+        public float GetIncrement()
+        {
+            return NextIncrement;
+        }
 
-    public override bool Equals(object obj)
-    {
-        Salary salary = (Salary)obj;
-        return (salary.Role.Equals(Role) && salary.Seniority.Equals(Seniority));
+        public void ApplyIncrementToBaseSalary()
+        {
+            BaseSalary = BaseSalary + (BaseSalary * NextIncrement)/100;
+        }
+
+        public override bool Equals(object obj)
+        {
+            Salary salary = (Salary)obj;
+            return (salary.Role.Equals(Role) && salary.Seniority.Equals(Seniority));
+        }
     }
 }
+
+

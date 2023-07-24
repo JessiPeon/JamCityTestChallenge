@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Logic;
 
-
-public class Data 
+namespace DataPersistence
 {
-    //public Role[] role;
-    //public Seniority[] seniority;
-    public Salary[] salary;
-    //public Employee[] employee;
+    public class Data 
+    {
+        //public Role[] role;
+        //public Seniority[] seniority;
+        public Salary[] salary;
+        //public Employee[] employee;
+    }
 }
+

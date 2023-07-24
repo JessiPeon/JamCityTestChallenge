@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Constants
+namespace Logic
 {
-    public const string noSeniority = "Unique"; 
+    public static class Constants
+    {
+        public const string noSeniority = "Unique"; 
+    }
 }
+

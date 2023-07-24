@@ -2,146 +2,150 @@ using UnityEngine.Audio;
 using UnityEngine;
 using System;
 
-public class AudioController : MonoBehaviour
+namespace Behaviour
 {
-    public Sound[] sounds;
-
-    public static AudioController instance;
-
-    void Awake()
+    public class AudioController : MonoBehaviour
     {
-        if (instance == null)
-        {
-            instance = this;
-        } else
-        {
-            Destroy(gameObject);
-            return;
-        }
-        DontDestroyOnLoad(gameObject);
+        public Sound[] sounds;
 
-        LoadSounds();
-    }
+        public static AudioController instance;
 
-    public void RestartAudioController()
-    {
-        LoadSounds();
-    }
-
-    public void Play(string name)
-    {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
+        void Awake()
         {
-            Debug.Log("Play. Nombre incorrecto Audio: " + name);
-        } else
-        {
-            s.source.Play();
-        }
-        
-    }
-
-    public void Stop(string name)
-    {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
-        {
-            Debug.LogWarning("Sound: " + name + " not found");
-            return;
-        }
-        s.source.Stop();
-    }
-
-    public void StopAll()
-    {
-        foreach (Sound s in sounds)
-        {
-            if (s.source.isPlaying)
+            if (instance == null)
             {
-                s.source.Stop();
+                instance = this;
+            } else
+            {
+                Destroy(gameObject);
+                return;
             }
+            DontDestroyOnLoad(gameObject);
+
+            LoadSounds();
         }
+
+        public void RestartAudioController()
+        {
+            LoadSounds();
+        }
+
+        public void Play(string name)
+        {
+            Sound s = Array.Find(sounds, sound => sound.name == name);
+            if (s == null)
+            {
+                Debug.Log("Play. Nombre incorrecto Audio: " + name);
+            } else
+            {
+                s.source.Play();
+            }
         
-    }
-
-    public void Mute(string name)
-    {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
-        {
-            Debug.Log("Mute. Nombre incorrecto Audio: " + name);
-        } else
-        {
-            s.source.volume = 0;
         }
 
-    }
-
-    public void SetVolume(float volume, string name)
-    {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
+        public void Stop(string name)
         {
-            Debug.Log("Mute. Nombre incorrecto Audio: " + name);
-        }
-        else
-        {
-            s.source.volume = volume;
+            Sound s = Array.Find(sounds, sound => sound.name == name);
+            if (s == null)
+            {
+                Debug.LogWarning("Sound: " + name + " not found");
+                return;
+            }
+            s.source.Stop();
         }
 
-    }
-
-    public void UnMute(string name)
-    {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
+        public void StopAll()
         {
-            Debug.Log("UnMute. Nombre incorrecto Audio: " + name);
-        } else
-        {
-            s.source.volume = s.volume;
+            foreach (Sound s in sounds)
+            {
+                if (s.source.isPlaying)
+                {
+                    s.source.Stop();
+                }
+            }
+        
         }
+
+        public void Mute(string name)
+        {
+            Sound s = Array.Find(sounds, sound => sound.name == name);
+            if (s == null)
+            {
+                Debug.Log("Mute. Nombre incorrecto Audio: " + name);
+            } else
+            {
+                s.source.volume = 0;
+            }
+
+        }
+
+        public void SetVolume(float volume, string name)
+        {
+            Sound s = Array.Find(sounds, sound => sound.name == name);
+            if (s == null)
+            {
+                Debug.Log("Mute. Nombre incorrecto Audio: " + name);
+            }
+            else
+            {
+                s.source.volume = volume;
+            }
+
+        }
+
+        public void UnMute(string name)
+        {
+            Sound s = Array.Find(sounds, sound => sound.name == name);
+            if (s == null)
+            {
+                Debug.Log("UnMute. Nombre incorrecto Audio: " + name);
+            } else
+            {
+                s.source.volume = s.volume;
+            }
             
-    }
+        }
 
-    public bool audioSourceIsPlaying()
-    {
-        foreach (Sound s in sounds)
+        public bool audioSourceIsPlaying()
         {
-            if (s.source.isPlaying)
+            foreach (Sound s in sounds)
             {
-                return true;
+                if (s.source.isPlaying)
+                {
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
-    }
 
-    public bool audioIsPlaying(string name)
-    {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
+        public bool audioIsPlaying(string name)
         {
-            Debug.Log("UnMute. Nombre incorrecto Audio: " + name);
-        }
-        else
-        {
-            if (s.source.isPlaying)
+            Sound s = Array.Find(sounds, sound => sound.name == name);
+            if (s == null)
             {
-                return true;
+                Debug.Log("UnMute. Nombre incorrecto Audio: " + name);
             }
+            else
+            {
+                if (s.source.isPlaying)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
-        return false;
-    }
 
-    private void LoadSounds()
-    {
-        foreach (Sound s in sounds)
+        private void LoadSounds()
         {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
+            foreach (Sound s in sounds)
+            {
+                s.source = gameObject.AddComponent<AudioSource>();
+                s.source.clip = s.clip;
 
-            s.source.volume = s.volume;
-            s.source.loop = s.loop;
+                s.source.volume = s.volume;
+                s.source.loop = s.loop;
+            }
         }
     }
 }
+

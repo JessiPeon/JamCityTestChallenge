@@ -2,23 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Role
+namespace Logic
 {
-    public string Name;
-
-    internal Role(string name)
+    [System.Serializable]
+    public class Role
     {
-        Name = name;
+        public string Name;
+
+        internal Role(string name)
+        {
+            Name = name;
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+
+            Role other = obj as Role;
+
+            if (other == null) return false;
+
+            return this.Name.Equals(other.Name);
+        }
     }
-    public override bool Equals(object obj)
-    {
-        if (obj == null) return false;
 
-        Role other = obj as Role;
-
-        if (other == null) return false;
-
-        return this.Name.Equals(other.Name);
-    }
 }
+

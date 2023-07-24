@@ -4,25 +4,29 @@ using UnityEngine;
 using System.IO;
 using System;
 
-public class JSONReadWrite : MonoBehaviour
+namespace DataPersistence
 {
-    public Data ReadJSON(string fullPath)
+    public class JSONReadWrite : MonoBehaviour
     {
-        Data loadedData = null;
-        if (File.Exists(fullPath))
+        public Data ReadJSON(string fullPath)
         {
-            try
+            Data loadedData = null;
+            if (File.Exists(fullPath))
             {
-                string dataToLoad = File.ReadAllText(fullPath);
+                try
+                {
+                    string dataToLoad = File.ReadAllText(fullPath);
 
-                //deserialize
-                loadedData = JsonUtility.FromJson<Data>(dataToLoad);
+                    //deserialize
+                    loadedData = JsonUtility.FromJson<Data>(dataToLoad);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("Error ocurred when trying to load the data " + fullPath + "\n" + e);
+                }
             }
-            catch (Exception e)
-            {
-                Debug.LogError("Error ocurred when trying to load the data " + fullPath + "\n" + e);
-            }
+            return loadedData;
         }
-        return loadedData;
     }
 }
+

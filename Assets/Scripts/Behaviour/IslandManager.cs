@@ -1,45 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Logic;
 
-public class IslandManager : MonoBehaviour
+namespace Behaviour
 {
-    private List<GameObject> islands;
-    [SerializeField] private Transform[] positionsIslands;
-    [SerializeField] private bool[] occupiedIslands;
-    [SerializeField] private GameObject islandPrefab;
-    [SerializeField] private Transform parentTransform;
 
-    private void Start()
+    public class IslandManager : MonoBehaviour
     {
-        islands = new List<GameObject>();
-    }
+        private List<GameObject> islands;
+        [SerializeField] private Transform[] positionsIslands;
+        [SerializeField] private bool[] occupiedIslands;
+        [SerializeField] private GameObject islandPrefab;
+        [SerializeField] private Transform parentTransform;
 
-    public void CreateIsland(Role role)
-    {
-        int positionKey = 0;
-        bool found = false;
-        do
+        private void Start()
         {
-            positionKey = Random.Range(0, positionsIslands.Length);
-            if (!occupiedIslands[positionKey])
+            islands = new List<GameObject>();
+        }
+
+        public void CreateIsland(Role role)
+        {
+            int positionKey = 0;
+            bool found = false;
+            do
             {
-                occupiedIslands[positionKey] = true;
-                found = true;
-            }
-        } while (!found);
-        Vector3 finalPosition = positionsIslands[positionKey].position;
-        GameObject instanciatedObject = Instantiate(islandPrefab, finalPosition, Quaternion.identity, parentTransform);
+                positionKey = Random.Range(0, positionsIslands.Length);
+                if (!occupiedIslands[positionKey])
+                {
+                    occupiedIslands[positionKey] = true;
+                    found = true;
+                }
+            } while (!found);
+            Vector3 finalPosition = positionsIslands[positionKey].position;
+            GameObject instanciatedObject = Instantiate(islandPrefab, finalPosition, Quaternion.identity, parentTransform);
         
-        instanciatedObject.GetComponent<Island>().InicializeIsland(role, positionKey);
-        islands.Add(instanciatedObject);
-    }
+            instanciatedObject.GetComponent<Island>().InicializeIsland(role, positionKey);
+            islands.Add(instanciatedObject);
+        }
 
-    public void ResetIslands()
-    {
-        foreach (var island in islands)
+        public void ResetIslands()
         {
-            island.GetComponent<Island>().ResetIsland();
+            foreach (var island in islands)
+            {
+                island.GetComponent<Island>().ResetIsland();
+            }
         }
     }
 }
+
