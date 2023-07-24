@@ -16,10 +16,10 @@ namespace Behaviour
             Role pmRole = managerEmployees.CreateRole("PMs");
             Role ceoRole = managerEmployees.CreateRole("Ceo");
 
-            Seniority seniorSeniority = managerEmployees.CreateSeniority("Senior");
-            Seniority semiSeniorSeniority = managerEmployees.CreateSeniority("Semi Senior");
-            Seniority juniorSeniority = managerEmployees.CreateSeniority("Junior");
-            Seniority noSeniority = managerEmployees.CreateSeniority("Unique");
+            Seniority seniorSeniority = managerEmployees.CreateSeniority(Constants.Senior);
+            Seniority semiSeniorSeniority = managerEmployees.CreateSeniority(Constants.SemiSenior);
+            Seniority juniorSeniority = managerEmployees.CreateSeniority(Constants.Junior);
+            Seniority noSeniority = managerEmployees.CreateSeniority(Constants.noSeniority);
 
             Salary hrSeniorSalary = managerEmployees.CreateSalary(hrRole, seniorSeniority, 1500, 5);
             Salary hrSemiSeniorSalary = managerEmployees.CreateSalary(hrRole, semiSeniorSeniority, 1000, 2);

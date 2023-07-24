@@ -35,7 +35,7 @@ namespace Behaviour
             Sound s = Array.Find(sounds, sound => sound.name == name);
             if (s == null)
             {
-                Debug.Log("Play. Nombre incorrecto Audio: " + name);
+                Debug.Log("Play. Incorrect name Audio: " + name);
             } else
             {
                 s.source.Play();
@@ -52,87 +52,6 @@ namespace Behaviour
                 return;
             }
             s.source.Stop();
-        }
-
-        public void StopAll()
-        {
-            foreach (Sound s in sounds)
-            {
-                if (s.source.isPlaying)
-                {
-                    s.source.Stop();
-                }
-            }
-        
-        }
-
-        public void Mute(string name)
-        {
-            Sound s = Array.Find(sounds, sound => sound.name == name);
-            if (s == null)
-            {
-                Debug.Log("Mute. Nombre incorrecto Audio: " + name);
-            } else
-            {
-                s.source.volume = 0;
-            }
-
-        }
-
-        public void SetVolume(float volume, string name)
-        {
-            Sound s = Array.Find(sounds, sound => sound.name == name);
-            if (s == null)
-            {
-                Debug.Log("Mute. Nombre incorrecto Audio: " + name);
-            }
-            else
-            {
-                s.source.volume = volume;
-            }
-
-        }
-
-        public void UnMute(string name)
-        {
-            Sound s = Array.Find(sounds, sound => sound.name == name);
-            if (s == null)
-            {
-                Debug.Log("UnMute. Nombre incorrecto Audio: " + name);
-            } else
-            {
-                s.source.volume = s.volume;
-            }
-            
-        }
-
-        public bool audioSourceIsPlaying()
-        {
-            foreach (Sound s in sounds)
-            {
-                if (s.source.isPlaying)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public bool audioIsPlaying(string name)
-        {
-            Sound s = Array.Find(sounds, sound => sound.name == name);
-            if (s == null)
-            {
-                Debug.Log("UnMute. Nombre incorrecto Audio: " + name);
-            }
-            else
-            {
-                if (s.source.isPlaying)
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         private void LoadSounds()

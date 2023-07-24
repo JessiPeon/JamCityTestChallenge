@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace Logic
 {
-
+    [System.Serializable]
     public class Employee
     {
-        public string Nombre { get; }
-        public Role Role { get; }
-        public Seniority Seniority { get; }
-        public Salary Salary { get; }
+        public string Nombre;
+        public Role Role;
+        public Seniority Seniority;
+        public Salary Salary;
 
         internal Employee(string nombre, Salary salary)
         {

@@ -9,15 +9,15 @@ namespace Logic
     {
         public List<Role> roles;
         public List<Seniority> seniorities;
-        public Dictionary<Role, Dictionary<Seniority, List<Employee>>> employeesByRoleAndSenirity;
-        public Dictionary<Role, Dictionary<Seniority, Salary>> salaryByRoleAndSeniroity;
+        public Dictionary<Role, Dictionary<Seniority, List<Employee>>> employeesByRoleAndSeniority;
+        public Dictionary<Role, Dictionary<Seniority, Salary>> salaryByRoleAndSenirity;
 
         public ManagerEmployees()
         {
             roles = new List<Role>();
             seniorities = new List<Seniority>();
-            employeesByRoleAndSenirity = new Dictionary<Role, Dictionary<Seniority, List<Employee>>>();
-            salaryByRoleAndSeniroity = new Dictionary<Role, Dictionary<Seniority, Salary>>();
+            employeesByRoleAndSeniority = new Dictionary<Role, Dictionary<Seniority, List<Employee>>>();
+            salaryByRoleAndSenirity = new Dictionary<Role, Dictionary<Seniority, Salary>>();
         }
 
         public Role CreateRole(string name)
@@ -63,7 +63,7 @@ namespace Logic
         {
 
             Salary salary = new Salary(role, seniority, baseSalary, increment);
-            foreach (var roleEntry in salaryByRoleAndSeniroity)
+            foreach (var roleEntry in salaryByRoleAndSenirity)
             {
                 if (roleEntry.Key.Equals(role))
                 {
@@ -83,12 +83,12 @@ namespace Logic
         private void AddEmployee(Employee employee)
         {
 
-            if (!employeesByRoleAndSenirity.ContainsKey(employee.Role))
+            if (!employeesByRoleAndSeniority.ContainsKey(employee.Role))
             {
-                employeesByRoleAndSenirity[employee.Role] = new Dictionary<Seniority, List<Employee>>();
+                employeesByRoleAndSeniority[employee.Role] = new Dictionary<Seniority, List<Employee>>();
             }
 
-            Dictionary<Seniority, List<Employee>> employeesBySeniority = employeesByRoleAndSenirity[employee.Role];
+            Dictionary<Seniority, List<Employee>> employeesBySeniority = employeesByRoleAndSeniority[employee.Role];
 
             if (!employeesBySeniority.ContainsKey(employee.Seniority))
             {
@@ -102,12 +102,12 @@ namespace Logic
  
         private void AddSalary(Salary salary)
         {
-            if (!salaryByRoleAndSeniroity.ContainsKey(salary.Role))
+            if (!salaryByRoleAndSenirity.ContainsKey(salary.Role))
             {
-                salaryByRoleAndSeniroity[salary.Role] = new Dictionary<Seniority, Salary>();
+                salaryByRoleAndSenirity[salary.Role] = new Dictionary<Seniority, Salary>();
             }
 
-            Dictionary<Seniority, Salary> salariesBySeniority = salaryByRoleAndSeniroity[salary.Role];
+            Dictionary<Seniority, Salary> salariesBySeniority = salaryByRoleAndSenirity[salary.Role];
 
             if (salariesBySeniority.ContainsKey(salary.Seniority))
             {
@@ -123,7 +123,7 @@ namespace Logic
         {
             var text = "In the company there are:\n";
             int counterRole = 0;
-            foreach (var roleEntry in employeesByRoleAndSenirity)
+            foreach (var roleEntry in employeesByRoleAndSeniority)
             {
                 Role role = roleEntry.Key;
                 Dictionary<Seniority, List<Employee>> employeesBySeniority = roleEntry.Value;
@@ -154,7 +154,7 @@ namespace Logic
                 {
                     text += " - (" + text2 + ")";
                 }
-                if(counterRole!= employeesByRoleAndSenirity.Count)
+                if(counterRole!= employeesByRoleAndSeniority.Count)
                 {
                     text += "\n";
                 }
@@ -166,7 +166,7 @@ namespace Logic
         {
             var text = "The base salary is:\n";
             int counterRole = 0;
-            foreach (var roleEntry in salaryByRoleAndSeniroity)
+            foreach (var roleEntry in salaryByRoleAndSenirity)
             {
                 Role role = roleEntry.Key;
                 Dictionary<Seniority, Salary> salariesBySeniority = roleEntry.Value;
@@ -194,7 +194,7 @@ namespace Logic
                     }
                 }
                 text += "* "+ role.Name + " - (" + text2 + ")";
-                if (counterRole != employeesByRoleAndSenirity.Count)
+                if (counterRole != employeesByRoleAndSeniority.Count)
                 {
                     text += "\n";
                 }
@@ -206,7 +206,7 @@ namespace Logic
         {
             var text = "The salary increment percentage is:\n";
             int counterRole = 0;
-            foreach (var roleEntry in salaryByRoleAndSeniroity)
+            foreach (var roleEntry in salaryByRoleAndSenirity)
             {
                 Role role = roleEntry.Key;
                 Dictionary<Seniority, Salary> salariesBySeniority = roleEntry.Value;
@@ -234,7 +234,7 @@ namespace Logic
                     }
                 }
                 text += "* " + role.Name + " - (" + text2 + ")";
-                if (counterRole != employeesByRoleAndSenirity.Count)
+                if (counterRole != employeesByRoleAndSeniority.Count)
                 {
                     text += "\n";
                 }
@@ -244,7 +244,7 @@ namespace Logic
 
         public void ApplyIncrementToAllBaseSalaries()
         {
-            foreach (var roleEntry in salaryByRoleAndSeniroity)
+            foreach (var roleEntry in salaryByRoleAndSenirity)
             {
                 Dictionary<Seniority, Salary> salariesBySeniority = roleEntry.Value;
 
@@ -256,15 +256,32 @@ namespace Logic
             }
         }
 
-        public List<Role> getRoles()
+        public List<Salary> getAllSalaries()
         {
-            List<Role> roles = new List<Role>();
-            foreach (var entry in salaryByRoleAndSeniroity)
+            List<Salary> salaries = new List<Salary>();
+            foreach (var roleEntry in salaryByRoleAndSenirity)
             {
-                Role role = entry.Key;
-                roles.Add(role);
+                Dictionary<Seniority, Salary> salariesBySeniority = roleEntry.Value;
+                foreach (var seniorityEntry in salariesBySeniority)
+                {
+                    salaries.Add(seniorityEntry.Value);
+                }
             }
-            return roles;
+            return salaries;
+        }
+
+        public List<Employee> getAllEmployees()
+        {
+            List<Employee> employees = new List<Employee>();
+            foreach (var roleEntry in employeesByRoleAndSeniority)
+            {
+                Dictionary<Seniority, List<Employee>> employeesBySeniority = roleEntry.Value;
+                foreach (var seniorityEntry in employeesBySeniority)
+                {
+                    employees.AddRange(seniorityEntry.Value);
+                }
+            }
+            return employees;
         }
 
 
@@ -275,6 +292,17 @@ namespace Logic
                 Role role = CreateRole(salary.Role.Name);
                 Seniority seniority = CreateSeniority(salary.Seniority.Level);
                 Salary newSalary = CreateSalary(role, seniority, salary.BaseSalary, salary.NextIncrement);
+            }
+        }
+
+        public void SaveEmployeeInSystem(Employee[] employees)
+        {
+            foreach (var employee in employees)
+            {
+                Role role = CreateRole(employee.Role.Name);
+                Seniority seniority = CreateSeniority(employee.Seniority.Level);
+                Salary salary = CreateSalary(role, seniority, employee.Salary.BaseSalary,employee.Salary.NextIncrement);
+                Employee newEmployee = CreateEmployee(employee.Nombre, salary);
             }
         }
     }

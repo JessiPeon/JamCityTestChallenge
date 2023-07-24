@@ -6,9 +6,9 @@ using System;
 
 namespace DataPersistence
 {
-    public class JSONReadWrite : MonoBehaviour
+    public class JSONReadWrite : MonoBehaviour, IDataPersistence
     {
-        public Data ReadJSON(string fullPath)
+        public Data Read(string fullPath)
         {
             Data loadedData = null;
             if (File.Exists(fullPath))
@@ -17,7 +17,6 @@ namespace DataPersistence
                 {
                     string dataToLoad = File.ReadAllText(fullPath);
 
-                    //deserialize
                     loadedData = JsonUtility.FromJson<Data>(dataToLoad);
                 }
                 catch (Exception e)
@@ -27,6 +26,21 @@ namespace DataPersistence
             }
             return loadedData;
         }
+
+        public void Write(Data data, string fullPath)
+        {
+            try
+            {
+                string json = JsonUtility.ToJson(data, true);
+                File.WriteAllText(fullPath, json);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Error ocurred when trying to save the data " + fullPath + "\n" + e);
+            }
+        }
+
+
     }
 }
 

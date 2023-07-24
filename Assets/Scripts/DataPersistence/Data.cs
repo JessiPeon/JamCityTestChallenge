@@ -7,10 +7,8 @@ namespace DataPersistence
 {
     public class Data 
     {
-        //public Role[] role;
-        //public Seniority[] seniority;
         public Salary[] salary;
-        //public Employee[] employee;
+        public Employee[] employee;
     }
 }
 
