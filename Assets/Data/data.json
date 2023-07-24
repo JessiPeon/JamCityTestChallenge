@@ -1,0 +1,24 @@
+{
+	"salary": [
+		{
+			"Role": {
+				"Name": "Artist"
+			},
+			"Seniority": {
+				"Level": "Junior"
+			},
+			"BaseSalary": 5000,
+			"NextIncrement": 5
+		},
+		{
+			"Role": {
+				"Name": "Artist"
+			},
+			"Seniority": {
+				"Level": "Senior"
+			},
+			"BaseSalary": 10000,
+			"NextIncrement": 10
+		}
+	]
+}
